@@ -1,10 +1,24 @@
 ## Welcome to Sumbur's blog
 
-I'm a junior programmer.      aaaaa       aaaaa       aaaaa
-WeChat ID: c1399553905
-
-![image](sumburdalod.github.io/image.jpeg)
-
-Trying to add content, please wait.
-
-[link](sumburdalod.github.io/test.html)
+财经类大学：  
+  北京   
+    院校名称    
+    1.北京工商大学    
+    2.中央财经大学（211）    
+    3.对外经济贸易大学    
+    4.首都经济贸易大学  
+  河北    
+    5.河北地质大学    
+    6.河北经贸大学  
+  浙江    
+    7.浙江工商大学    
+    8.浙江财经大学  
+  山东    
+    9.山东财经大学  
+  辽宁    
+    10.东北财经大学  
+  天津    
+    11.天津商业大学    
+    12.天津财经大学  
+  上海    
+    13.上海财经大学
