@@ -1,0 +1,26 @@
+html,css,javscript
+sublime-text,markdown,english
+
+css:
+文字排版：
+	font-weight:bold;  //设置粗体
+		    normal;  //取消粗体
+	font-style:italic;  //设置斜体
+	font-family:"Microsoft Yahei";  //设置字体 微软雅黑
+	text-decoration:underline;  //设置下划线
+			line-through;  //设置删除线
+	text-indent:2em;  //设置2个空格缩进
+	line-height:2em;  //设置行间距2（行高）
+	letter-spacing:20px;  //设置字母与字母间距离
+	word-spacing:20px;  //设置单词与单词间距离
+	text-align:center;  //设置居中
+元素分类：
+	块状元素：
+		1、每个块级元素都从新的一行开始，并且其后的元素也另起一行。（真霸道，一个块级元素独占一行）
+		2、元素的高度、宽度、行高以及顶和底边距都可设置。
+		3、元素宽度在不设置的情况下，是它本身父容器的100%（和父元素的宽度一致），除非设定一个宽度。
+		<div>,<p>,<h1>,<ol>,<ul>,<li>,<dl>,<table>,<adress>,<blockquote>,<form>
+	内联元素：
+		<a>,<span>,<br>,<i>,<em>,<strong>,<label>,<q>,<var>,<cite>,<code>
+	内联块状元素：
+		<img>,<input>
