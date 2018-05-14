@@ -34,9 +34,11 @@ ul li {
 .container {
   display: flex;
   flex-direction: column;
+  width: 100%;
   font-family: '微软雅黑' sans-serif;
 }
 .header {
+  width: 100%;
   padding: 100px 0;
   color: #fff;
   background: #188eee url(http://coding.imweb.io/img/project/resume/bg.png);
