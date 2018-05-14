@@ -1,0 +1,127 @@
+ul {
+  padding: 0;
+}
+ul li {
+  list-style-type: none;
+}
+
+@font-face {
+  font-family: 'my-icon';
+  src:  url('fonts/my-icon.eot?cdtepi');
+  src:  url('fonts/my-icon.eot?cdtepi#iefix') format('embedded-opentype'),
+    url('fonts/my-icon.ttf?cdtepi') format('truetype'),
+    url('fonts/my-icon.woff?cdtepi') format('woff'),
+    url('fonts/my-icon.svg?cdtepi#my-icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'my-icon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  font-family: '微软雅黑' sans-serif;
+}
+.header {
+  padding: 100px 0;
+  color: #fff;
+  background: #188eee url(http://coding.imweb.io/img/project/resume/bg.png);
+}
+.header-tt {
+  text-align: center;
+}
+.user-photo {
+  width: 140px;
+  height: 140px;
+  border: 2px solid #00f;
+  border-radius: 50%;
+}
+.user-name {
+  margin-bottom: 0;
+}
+.user-profile {
+  margin-top: 0;
+}
+.header-bd {
+}
+.user-contact {
+  float: left;
+  position: relative;
+  left: 50%;
+}
+.user-contact ul {
+  position: relative;
+  left: -50%;
+}
+.user-contact ul li {
+  height: 2rem;
+  line-height: 2rem;
+}
+.user-email::before, .user-phone::before, .user-github::before {
+  width: 1.25rem;
+  height: 1.25rem;
+  padding: 0.25rem;
+  font-size: 1.25rem;
+  vertical-align: middle;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  margin-right: 10px;
+  font-family: 'my-icon';
+}
+.user-email::before {
+  content: "\ea84";
+}
+.user-phone::before {
+  content: "\e942";
+}
+.user-github::before {
+  content: "\eab0";
+}
+.user-information {
+  float: left;
+  position: relative;
+  left: 50%;
+  clear: both;
+}
+.user-information ul {
+  position: relative;
+  left: -50%;
+}
+.user-information ul li {
+  float: left;
+  width: 50%;
+  text-align: center;
+}
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+    width: 1200px;
+    margin: 0 auto;
+  }
+  .header {
+    width: 50%;
+  }
+  .main {
+    width: 50%;
+  }
+}
