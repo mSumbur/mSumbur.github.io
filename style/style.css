@@ -156,6 +156,7 @@ ul li {
 .skill-bar {
   background: linear-gradient(to right, #188eee 0, #188eee 4em, #ccc 0, #ccc);
 }
+/* 桌面 */
 @media (min-width: 768px) {
   .container {
     flex-direction: row;
