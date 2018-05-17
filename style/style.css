@@ -48,6 +48,7 @@ ul li {
 .user-photo {
   width: 120px;
   height: 120px;
+  background-color: #fff;
   border: 4px solid #5db0f3;
   border-radius: 50%;
 }
@@ -109,7 +110,7 @@ ul li {
   display: flex;
   flex-direction: column;
 }
-.exp-box, .skill-box {
+.box {
     height: 50%;
 }
 .box-tt {
@@ -124,38 +125,61 @@ ul li {
   background-position: center;
   background-repeat: no-repeat;
 }
-.exp-box-bd {
-  font-size: 12px;
-}
-.exp-box-bd h3 {
+.box-bd h3 {
   margin: 0;
 }
-.exp-box-bd p {
+.box-bd p {
   color: #999;
 }
-.skill-box-bd h3 {
-  display: inline-block;
-  margin: 0;
+.exp-bd {
+  position: relative;
+  font-size: 12px;
 }
-.skill-box-bd span {
+/* .point {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5%;
+  height: 100%;
+  background-color: #188eee;
+  border-radius: 50%;
+} */
+.skill-bd h3 {
+  display: inline-block;
+}
+.skill-bd span {
   float: right;
-  padding: 0 2px;
+  padding: 0 8px;
   font-size: 12px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 20px;
 }
-.skill-box-bd p {
+.skill-bd p {
   margin-top: 0;
   color: #999;
 }
 .skill-bar {
   width: 100%;
   height: 4px;
+  margin-bottom: 1em;
   border-radius: 10px;
+  background-color: #ccc;
 }
-.skill-bar {
-  background: linear-gradient(to right, #188eee 0, #188eee 4em, #ccc 0, #ccc);
+.skill-bar div {
+  height: 100%;
+  border-radius: 5px;
+  background-color: #188eee;
 }
+.skill1 {
+  width: 4em;
+}
+.skill2 {
+  width: 18em;
+}
+.skill3 {
+  width: 10em
+}
+
 /* 桌面 */
 @media (min-width: 768px) {
   .container {
