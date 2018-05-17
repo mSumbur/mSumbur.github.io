@@ -112,9 +112,6 @@ ul li {
   display: flex;
   flex-direction: column;
 }
-.box {
-    height: 50%;
-}
 .box-tt {
   display: flex;
   color: #188eee;
@@ -184,17 +181,24 @@ ul li {
 
 /* 桌面 */
 @media (min-width: 768px) {
+  body {
+    margin: 0;
+    padding: 0;
+  }
   .container {
     flex-direction: row;
-    width: 1200px;
-    margin: 0 auto;
+    width: 100vw;
+    height: 100vh
   }
   .header {
     width: 50%;
-    height: auto;
+    height: 100vh;
   }
   .main {
+    justify-content: center;
+    align-content: center;
     width: 48%;
+    height: 100vh;
     margin-left: 2%;
   }
 }
