@@ -53,6 +53,11 @@ ul li {
   background-color: #fff;
   border: 4px solid #5db0f3;
   border-radius: 50%;
+  transition: box-shadow 2s ease 0.5s;
+}
+/* 头像的动画 */
+.user-photo:hover {
+  box-shadow: 0 0 5px 5px #5db0f3;
 }
 .user-name {
   margin-bottom: 0;
@@ -107,6 +112,8 @@ ul li {
   width: 50%;
   padding-left: 2px;
 }
+
+
 /* main */
 .main {
   display: flex;
@@ -124,25 +131,49 @@ ul li {
   background-position: center;
   background-repeat: no-repeat;
 }
+.exp-bd {
+  position: relative;
+}
+.box-decoration-l {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 100%;
+  background: linear-gradient(to bottom, #ccc 0, #ccc 90%, transparent) no-repeat center/2px 100%;
+}
+.exp-time {
+  position: relative;
+}
+.exp-time div {
+  position: absolute;
+  display: inline-block;
+  width: 18px;
+  height: 100%;
+  left: -18px;
+  margin-left: -9px  ;
+  background-color: #188eee;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 4px solid #c9e0f4;
+  transition: box-shadow 1s ease 0;
+}
+.box-content h3:hover div {
+  box-shadow: 0 0 2px 2px #c9e0f4;
+}
+.box-content {
+  margin-left: 36px;
+}
 .box-bd h3 {
-  margin: 0;
+  margin: 0.5em 0;
+  line-height: 100%;
 }
 .box-bd p {
   color: #999;
 }
-.exp-bd {
-  position: relative;
-  font-size: 12px;
+.skill-bd {
+  margin: 0 18px;
 }
-/* .point {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 5%;
-  height: 100%;
-  background-color: #188eee;
-  border-radius: 50%;
-} */
 .skill-bd h3 {
   display: inline-block;
 }
@@ -161,13 +192,14 @@ ul li {
   width: 100%;
   height: 4px;
   margin-bottom: 1em;
-  border-radius: 10px;
+  border-radius: 50px;
   background-color: #ccc;
 }
 .skill-bar div {
   height: 100%;
-  border-radius: 5px;
-  background-color: #188eee;
+  border-radius: 50px;
+  background: linear-gradient(to right, #117ad4, #10aeed);
+  transition: width 1s ease 0;
 }
 .skill1 {
   width: 4em;
@@ -178,7 +210,16 @@ ul li {
 .skill3 {
   width: 10em
 }
-
+/* 技能动画 */
+@@keyframes skill-animation {
+  0 {width：1em}
+  50% {width： 2em}
+  100% {width： 4em}
+}
+.skill-bd:hover .skill1 {
+  animation: 1s skill-animation;
+  /* width: 2em; */
+}
 /* 桌面 */
 @media (min-width: 768px) {
   body {
