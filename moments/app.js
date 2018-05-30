@@ -327,7 +327,7 @@ function bindEvent() {
       commentTextarea.css({
         width: $page.css('width'),
         display: 'block'
-      });
+      }).children('textarea').focus();
       var width = commentTextarea.width() - 44 - 10 - 10 - 5;
       commentTextarea.children('textarea').css('width',width);
     }
