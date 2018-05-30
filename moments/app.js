@@ -272,11 +272,12 @@ function bindEvent() {
    */
   var now;    // 保存点击的按钮
   var index;  // 保存点击的按钮的索引
-  var replyZone;
   $('.moments-item').on('click', '.item-reply-btn', function(event) {
     var btn = $(this).children('.reply-btn-bd');
+    // 如果点击的是now,就隐藏now,否则隐藏now,并重新赋值和显示now
     if(this === now ) {
       btn.css('display','none');
+      // 如果点击的是‘评论’按钮，不清楚now和index,否则清除
       if(!(event.target.classList.contains('comment') || event.target.parentElement.classList.contains('comment'))) {
         now = undefined;
         index = undefined;
@@ -287,7 +288,6 @@ function bindEvent() {
       }
       now = this;
       index = now.getAttribute('data-btn-index');
-      replyZone = $($('.moments-item')[index]).find('.reply-zone');
       btn.css('display', 'block');
     }
   })
@@ -305,34 +305,63 @@ function bindEvent() {
     }
   })
 
-  // 点赞按钮绑定事件
-  $('.like').on('click', function() {
-    if(this.innerText === '取消') {
-      hasLike('unlike');
-      $(this).children('span').text('点赞');
-      hasLiked = false;
+  // 点赞评论按钮绑定事件
+  var replyZone;  // 点赞评论列表
+
+  // 评论输入
+  var commentTextarea = $('<div class="comment-textarea"><textarea></textarea><button>评论</button></div>');
+  $page.append(commentTextarea);
+
+  $('.reply-btn-bd').on('click', 'button', function() {
+    // 获取点赞评论列表
+    replyZone = $($('.moments-item')[index]).find('.reply-zone');
+    if(this.classList.contains('like')) {
+      if(this.innerText === '取消') {
+        hasLike('unlike');
+        $(this).children('span').text('点赞');
+      }else {
+        hasLike('like');
+        $(this).children('span').text('取消');
+      }
     }else {
-      hasLike('like');
-      $(this).children('span').text('取消');
+      commentTextarea.css({
+        width: $page.css('width'),
+        display: 'block'
+      });
+      var width = commentTextarea.width() - 44 - 10 - 10 - 5;
+      commentTextarea.children('textarea').css('width',width);
     }
   })
 
-  var commentTextarea = $('<div class="comment-textarea"><textarea></textarea><button>评论</button></div>');
-  $page.append(commentTextarea);
-  $('.comment').on('click', function() {
-    commentTextarea.css({
-      width: $page.css('width'),
-      display: 'block'
-    });
-    var width = commentTextarea.width() - 44;
-    commentTextarea.children('textarea').css('width',width);
+  var showBtn;
+  $(commentTextarea).on('input', 'textarea', function() {
+    if(this.value) {
+      $(this).next().css('background-color','#228b22');
+      showBtn = 1;
+    }else {
+      $(this).next().css('background-color','#ccc');
+      showBtn = 0;
+    }
   })
 
   $(commentTextarea).on('click', 'button', function() {
-    var text = commentTextarea.css('display','none').children('textarea').val();
-    comment(text);
+    if(showBtn) {
+      var text = commentTextarea.css('display','none').children('textarea').val();
+      comment(text);
+      now = undefined;
+      index = undefined;
+      commentTextarea.children('textarea').val('');
+      this.style.backgroundColor = '#ccc';
+      showBtn = 0;
+    }
+  })
+
+  $(window).on('scroll', function() {
+    commentTextarea.css('display', 'none').children('textarea').val('');
+    commentTextarea.children('button').css('background-color','#ccc');
     now = undefined;
     index = undefined;
+    showBtn = 0;
   })
 
   /**
@@ -341,7 +370,6 @@ function bindEvent() {
    */
   function hasLike(str) {
     var replyLike = replyZone.children('.reply-like');
-
     if(str === 'like') {
       if(replyLike[0]) {
         replyLike.append('<a class="reply-who hasLiked" href="#">, ' + userName + '</a>');
@@ -373,6 +401,29 @@ function bindEvent() {
        replyZone.append('<div class="reply-comment"><div class="comment-item"><a class="reply-who" href="#">' + userName + '</a>：' + commentStr + '</div></div>');
      }
    }
+
+   /**
+    * 图片的点击查看
+    */
+    $('.item-pic').on('click', '.pic-item', function() {
+      var maskLayer = $('<div class="mask-layer"><div class="close-mask-layer">×</div></div>');
+      maskLayer.append($(this.outerHTML).css('z-index','1'));
+      // var otherImg = $(this).siblings('.pic-item');
+      // for(var i = 0; i < otherImg.length; i++) {
+      //   maskLayer.append($(otherImg[i].outerHTML).css('z-index','0'));
+      // }
+      $page.append(maskLayer);
+    })
+
+    $('.item-only-img').on('click', function() {
+      var maskLayer = $('<div class="mask-layer"><div class="close-mask-layer">×</div>' + this.outerHTML + '</div>');
+      $page.append(maskLayer);
+    })
+
+    $page.on('click', '.close-mask-layer', function() {
+      $page.children('.mask-layer').remove()
+    })
+
 }
 
 /**
