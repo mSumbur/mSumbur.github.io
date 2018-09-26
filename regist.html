@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>注册电子档案</title>
+  <style>
+    body {
+      color: #fff;
+      background: #188eee url(http://coding.imweb.io/img/project/resume/bg.png);
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 100%;
+      height: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    label {
+      display: flex;
+      justify-content: center;
+      height: 50px;
+      margin: 0 0 15px 0;
+      padding: 0 20px;
+    }
+    label span {
+      width: 5rem;
+      line-height: 50px;
+      font-weight: bold;
+    }
+    label input {
+      flex-grow: 1;
+      padding-left: 10px;
+      font-size: 1rem;
+      border: 0;
+      border-radius: 5px;
+    }
+    .user-pic {
+      position: relative;
+      width: 125px;
+      height: 175px;
+      margin: 30px auto 30px;
+      padding: 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background: url(http://coding.imweb.io/img/project/resume/avatar.png) no-repeat center center;
+    }
+    .user-pic img {
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+    }
+    .photo {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 125px;
+      height: 175px;
+      margin: 30px 0 0 -60px;
+      padding: 0;
+      opacity: 0;
+    }
+    .photo input {
+      width: 100%;
+      height: 100%;
+    }
+    button {
+      display: block;
+      width: 100px;
+      height: 44px;
+      margin: 20px auto;
+      border: 0;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="user-pic"><img id="user-pic" src="" alt=""></div>
+  <form action="/upload" enctype="multipart/form-data" method="post">
+    <label><span>姓名:</span><input type="text" name="name" placeholder="姓名"></label>
+    <label><span>性别:</span><input type="text" name="sex" placeholder="性别"></label>
+    <label><span>专业班级:</span><input type="text" name="class" placeholder="例如：土木1901"></label>
+    <label><span>部门:</span><input type="text" name="department" placeholder="例如：新媒体技术部"></label>
+    <label><span>职位:</span><input type="text" name="position" placeholder="部长/干事"></label>
+    <label class="photo"><input type="file" name="photo"></label>
+    <div>
+      <button>上传</button>
+    </div>
+  </form>
+
+  <script>
+    window.onload = function() {
+      var photo = document.querySelector('input[name="photo"]')
+      var userPic = document.querySelector('#user-pic')
+      photo.addEventListener('change', function(e) {
+        console.dir(e.target)
+        // 读取文件
+        var reader = new FileReader()
+        reader.onload = function(e) {
+          var data = e.target.result
+          userPic.setAttribute('src', data)
+        }
+        // 以DataURL的形式读取文件:
+        reader.readAsDataURL(this.files[0])
+      })
+    }
+  </script>
+</body>
+</html>
