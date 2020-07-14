@@ -21,8 +21,8 @@ var CONFIG = {
   enemySpeed: 2, // 默认敌人移动距离
   enemySize: 50, // 默认敌人的尺寸
   enemyGap: 10,  // 默认敌人之间的间距
-  enemyIcon: 'img/enemy.png', // 怪兽的图像
-  enemyBoomIcon: 'img/boom.png', // 怪兽死亡的图像
+  enemyIcon: 'enemy.png', // 怪兽的图像
+  enemyBoomIcon: 'boom.png', // 怪兽死亡的图像
   enemyDirection: 'right', // 默认敌人一开始往右移动
   enemyArea: {
     width: 640,
@@ -33,7 +33,7 @@ var CONFIG = {
     width: 60,
     height: 100
   }, // 默认飞机的尺寸,
-  planeIcon: './img/plane.png',
+  planeIcon: 'plane.png',
 };
 /**
  * 整个游戏对象
@@ -71,7 +71,6 @@ var GAME = {
           case 32:  // 开火
             fire();
             break;
-          // 老师的演示版 飞机的移动流畅 是怎么实现的呢？
           case 37:  // 飞机左动
             GAMEUI.planeX -= CONFIG.planeSpeed;
             break;
