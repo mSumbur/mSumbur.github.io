@@ -78,7 +78,7 @@ a:hover{
 [data-status="start"] .game-intro {
   display: block;
   padding-top: 180px;
-  background: url(./img/bg.png) no-repeat 430px 180px;
+  background: url(bg.png) no-repeat 430px 180px;
   background-size: 200px;
 }
 
@@ -87,6 +87,6 @@ a:hover{
 [data-status="all-success"] .game-all-success {
   display: block;
   padding-top: 180px;
-  background: url(./img/bg-end.png) no-repeat 380px 190px;
+  background: url(bg-end.png) no-repeat 380px 190px;
   background-size: 250px;
 }
