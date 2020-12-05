@@ -75,7 +75,7 @@ body {
 .content-close {
     float: right;
     width: 248px;
-    height: 237px;
+    height: 236px;
     border: 1px solid #ccc;
 }
 
@@ -85,7 +85,7 @@ body {
 }
 
 .footer {
-    height: 132px;
+    height: 70px;
     padding: 25px 0;
     background: #eceef2;
 }
