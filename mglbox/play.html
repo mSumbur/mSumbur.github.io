@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>播放</title>
+
+  <style>
+    body {      
+      margin: 0;
+      padding: 0;
+      background: black;
+    }
+
+    .main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;      
+    }        
+
+    video {
+      width: 90%;
+      height: 90%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="main" id="main"></div>
+
+  <!-- 引入在线资源 -->
+  <script src="http://gosspublic.alicdn.com/aliyun-oss-sdk-6.8.0.min.js"></script>
+  <script>
+    window.onload = function () {
+      const client = new OSS({
+        region: "oss-cn-beijing",
+        //云账号AccessKey有所有API访问权限，建议遵循阿里云安全最佳实践，创建并使用STS方式来进行API访问
+        accessKeyId: "LTAI4GFHXVLFTWbhnoR6TcKU",
+        accessKeySecret: "eNWiEWNZny3EvNPHTSWvSR0z4G6kw9",
+        bucket: "mglbox1",
+      });
+
+      console.log('video/data/' + decodeURI(location.search.replace('?name=')))
+      client.list({
+        prefix: 'video/data/' + decodeURI(location.search.replace('?name=', ''))
+      }).then(function (res) {
+        var html = ''
+        if (res.objects) {
+          html = '<video src="' + res.objects[0].url + '" controls ></video>'
+        }        
+        document.getElementById('main').innerHTML = html
+      })      
+    }
+  </script>
+</body>
+
+</html>

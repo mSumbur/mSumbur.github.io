@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>首页</title>
+
+  <!-- swiper -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, rgb(97, 83, 134), rgb(231, 39, 103)) no-repeat;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .main {
+      width: 80vw;
+      height: 100vh;
+      margin: 0 auto;
+      overflow-y: scroll;
+    }
+
+    .main::-webkit-scrollbar {
+      display: none;
+      /* Chrome Safari */
+    }
+
+    .main {
+      scrollbar-width: none;
+      /* firefox */
+      -ms-overflow-style: none;
+    }
+
+    .main-header {
+      /* display: flex;
+            justify-content: space-between; */
+      height: 100px;
+      margin: 10px 0;
+      overflow: hidden;
+    }
+
+    .header-logo-left {
+      width: 145px;
+    }
+
+    .main-header img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .main-header img:nth-child(2) {
+      float: right;
+      margin-right: 30px;
+    }
+
+    .swiper-container {
+      width: 100%;
+      height: calc(80vw / 3.8);
+      border-radius: 5px;
+      border: 4px solid rgb(255, 57, 13);
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .swiper-container:hover {
+      border: 8px solid rgb(255, 57, 13);
+    }
+
+    .swiper-pagination .swiper-pagination-bullet-active {
+      background-color: rgb(255, 57, 13) !important;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      color: rgb(255, 57, 13) !important;
+    }
+
+    .swiper-img {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 分割线 */
+
+    .main-hr {
+      width: 99%;
+      height: 4px;
+      margin: 20px auto;
+      background-color: rgb(255, 57, 13) !important;
+      border: none;
+    }
+
+    /* 专辑列表 */
+
+    .main-topics {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .topic-item {
+      width: calc((80vw - 80px) / 5);
+      height: calc((80vw - 80px) / 5 / 1.35);
+      /* margin-right: calc((100% / 6) / 4); */
+      margin-right: 20px;
+      margin-bottom: 20px;
+      border: 4px solid rgb(117, 188, 226);
+      border-radius: 5px;
+      overflow: hidden;
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+    }
+
+    .topic-item:hover {
+      border: 8px solid rgb(255, 57, 13);
+    }
+
+    .topic-item:nth-child(5n) {
+      margin-right: 0;
+    }
+
+    .topic-img {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="main">
+    <!-- 顶部 -->
+    <div class="main-header">
+      <div class="header-logo-left">
+        <img src="https://mglbox1.oss-cn-beijing.aliyuncs.com/image/logo_left.png" />
+      </div>
+    </div>
+
+    <!-- 轮播图 -->
+    <div class="swiper-container">
+      <div class="swiper-wrapper" id="swiper"></div>
+      <!-- 如果需要分页器 -->
+      <div class="swiper-pagination"></div>
+
+      <!-- 如果需要导航按钮 -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+
+      <!-- 如果需要滚动条 -->
+      <!-- <div class="swiper-scrollbar"></div> -->
+    </div>
+
+    <!---->
+    <div class="main-hr"></div>
+
+    <div class="main-topics" id="main-topics"></div>
+
+  </div>
+
+  <!-- 引入在线资源 -->
+  <script src="http://gosspublic.alicdn.com/aliyun-oss-sdk-6.8.0.min.js"></script>
+  <script>
+    window.onload = function () {
+      const client = new OSS({
+        region: "oss-cn-beijing",
+        //云账号AccessKey有所有API访问权限，建议遵循阿里云安全最佳实践，创建并使用STS方式来进行API访问
+        accessKeyId: "LTAI4GFHXVLFTWbhnoR6TcKU",
+        accessKeySecret: "eNWiEWNZny3EvNPHTSWvSR0z4G6kw9",
+        bucket: "mglbox1",
+      });
+
+      var topics = document.getElementById('main-topics')
+      client.list({
+        prefix: 'topic'
+      }).then(function (res) {
+        var html = ''
+        res.objects.shift()
+        res.objects.map(function (item, index) {
+          var name = item.name.replace('.jpg', '').replace('.png', '')
+          html += '<a class="topic-item" href="topic.html?name=' + name.replace('topic/', '') + '">'
+          html += '<img class="topic-img" src="' + item.url + '" />'
+          html += '</a>'
+        })
+        topics.innerHTML = html
+      })
+
+      var swiper = document.getElementById('swiper')
+      client.list({
+        prefix: 'swiper'
+      }).then(function (res) {
+        var html = ''
+        res.objects.shift()
+        res.objects.map(function (item, index) {
+          html += '<div class="swiper-slide">'
+          html += '<a href="topic.html?name=' + item.name.replace('swiper/', '').replace('.jpg', '').replace('.png', '') + '">'
+          html += '<img class="swiper-img" src="' + item.url + '" />'
+          html += '</a></div>'          
+        })
+        swiper.innerHTML = html
+      })
+    }    
+  </script>
+  <!-- swiper -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+    var mySwiper = new Swiper('.swiper-container', {
+      direction: 'horizontal', // 垂直切换选项
+      loop: true, // 循环模式选项
+      autoplay: true,
+
+      // 如果需要分页器
+      pagination: {
+        el: '.swiper-pagination',
+      },
+
+      // 如果需要前进后退按钮
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+
+      // 如果需要滚动条
+      scrollbar: {
+        el: '.swiper-scrollbar',
+      },
+    })
+  </script>
+</body>
+
+</html>
