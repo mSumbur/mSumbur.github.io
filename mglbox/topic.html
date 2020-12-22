@@ -152,7 +152,7 @@
           res.objects.map(function (item, index) {
             var name = item.name.replace('video/cover/', '').replace('.jpg', '').replace('.png', '')
             html += '<a class="video-item" href="play.html?name=' + name + '" target="_blank">'
-            html += '<div class="video-name">' + name.split('$')[1] + '</div>'              
+            html += '<div class="video-name">' + name.split('$')[2] + '</div>'              
             html += '<div class="video-img"><img src="' + item.url + '" /></div>'
             html += '</a><div class="clearfix"></div>'
           })
