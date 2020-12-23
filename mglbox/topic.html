@@ -27,22 +27,30 @@
       margin: 0 auto;
     }
 
-    .main-header {
-      /* display: flex;
-            justify-content: space-between; */
-      height: 100px;
+    .main-header {      
+      height: 120px;
       margin: 10px 0;
       overflow: hidden;
     }
 
-    .header-logo {
-      display: block;
-      width: 145px;
+    .header-logo-left {
+      display: flex;
+      align-items: center;     
+      text-decoration: none; 
     }
 
-    .main-header img {
-      width: 100%;
-      height: 100%;
+    .header-logo-left div {
+      font-size: 2em;      
+      font-family: 'Baga Urga';
+      color: rgb(117, 188, 226);
+      writing-mode: vertical-lr;
+      -webkit-writing-mode: vertical-lr;
+      text-orientation: sideways-right;
+      -webkit-text-orientation: sideways-right;
+    }
+
+    .main-header img {  
+      width: 177px;          
     }
 
     .video-list {
@@ -54,9 +62,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: calc(80vw / 4);
-      /* height: calc((80vw - 90px) / 4);      */
-      height: calc((80vw / 4 - 7em) / 1.7); 
+      width: calc(80vw / 4);      
+      height: calc((80vw / 4 - 6em) / 1.7); 
       margin-bottom: 3.5em;
       text-decoration: none;
       color: inherit;
@@ -86,7 +93,7 @@
     }
 
     .video-item video {
-      width: calc((80vw - 90px) / 4 - 4em);      
+      width: calc(80vw / 4 - 6em);      
       border: 4px solid rgb(117, 188, 226);
       border-radius: 5px;
     }    
@@ -116,8 +123,10 @@
   <div class="main">
     <!-- 顶部 -->
     <div class="main-header">
-      <a class="header-logo" href="index.html">
+      <a class="header-logo-left" href="index.html">
+        <div>ᠲᠡᠷᠢᠭᠦᠨ</div>
         <img src="https://mglbox1.oss-cn-beijing.aliyuncs.com/image/logo_left.png" />
+        <div>ᠨᠢᠭᠤᠷ</div>
       </a>
     </div>
 
@@ -128,27 +137,6 @@
   <script src="http://gosspublic.alicdn.com/aliyun-oss-sdk-6.8.0.min.js"></script>
   <script>
     window.onload = function () {
-      function getVideoBase64(url) {
-        return new Promise(function (resolve, reject) {
-            let dataURL = '';
-            let video = document.createElement("video");
-            // video.setAttribute('crossOrigin', 'anonymous');//处理跨域
-            video.setAttribute('src', url);
-            video.setAttribute('width', 400);
-            video.setAttribute('height', 240);
-            video.addEventListener('loadeddata', function () {
-                let canvas = document.createElement("canvas"),
-                    width = video.width, //canvas的尺寸和图片一样
-                    height = video.height;
-                canvas.width = width;
-                canvas.height = height;
-                canvas.getContext("2d").drawImage(video, 0, 0, width, height); //绘制canvas
-                dataURL = canvas.toDataURL('image/jpeg'); //转换为base64
-                resolve(dataURL);
-            });
-        })
-      }
-
       const client = new OSS({
         region: "oss-cn-beijing",        
         accessKeyId: "LTAI4GFHXVLFTWbhnoR6TcKU",
@@ -157,16 +145,17 @@
       });
       
       var list = document.getElementById('video-list')
+      console.log(decodeURI(location.search.replace('?name=', '')))
       client.list({
-        prefix: 'video/data/' + decodeURI(location.search.replace('?name=', ''))
+        prefix: 'video/' + decodeURI(location.search.replace('?name=', ''))
       }).then(function (res) {        
         var html = ''        
-        if (res.objects && res.objects.length > 0) {          
-          res.objects.shift()
+        if (res.objects && res.objects.length > 0) {                
           res.objects.map(function (item, index) {
-            var name = item.name.replace('video/cover/', '').replace('.jpg', '').replace('.png', '')            
+            var name = item.name.replace('video/', '')
+            name = name.split('$')[1].split('.')[0]            
             html += '<a class="video-item" href="play.html?name=' + item.url + '" target="_blank" >'            
-            html += '<div class="video-name">' + name.split('$')[1] + '</div>'              
+            html += '<div class="video-name">' + name + '</div>'              
             html += '<video preload="metadata" src="' + item.url + '" />'
             html += '</a>'
           })          

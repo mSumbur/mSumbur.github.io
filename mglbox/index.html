@@ -18,6 +18,11 @@
       height: 100vh;
     }
 
+    @font-face {
+      font-family: 'baga urga';
+      src: url('Urga.ttf');
+    }
+
     .main {
       width: 80vw;
       height: 100vh;
@@ -36,26 +41,29 @@
       -ms-overflow-style: none;
     }
 
-    .main-header {
-      /* display: flex;
-            justify-content: space-between; */
-      height: 100px;
+    .main-header {      
+      height: 120px;
       margin: 10px 0;
       overflow: hidden;
     }
 
     .header-logo-left {
-      width: 145px;
+      display: flex;
+      align-items: center;      
     }
 
-    .main-header img {
-      width: 100%;
-      height: 100%;
+    .header-logo-left div {
+      font-size: 2em;      
+      font-family: 'Baga Urga';
+      color: rgb(117, 188, 226);
+      writing-mode: vertical-lr;
+      -webkit-writing-mode: vertical-lr;
+      text-orientation: sideways-right;
+      -webkit-text-orientation: sideways-right;
     }
 
-    .main-header img:nth-child(2) {
-      float: right;
-      margin-right: 30px;
+    .main-header img {  
+      width: 177px;          
     }
 
     .swiper-container {
@@ -137,7 +145,9 @@
     <!-- 顶部 -->
     <div class="main-header">
       <div class="header-logo-left">
+        <div>ᠲᠡᠷᠢᠭᠦᠨ</div>
         <img src="https://mglbox1.oss-cn-beijing.aliyuncs.com/image/logo_left.png" />
+        <div>ᠨᠢᠭᠤᠷ</div>
       </div>
     </div>
 
@@ -183,8 +193,9 @@
         var html = ''
         res.objects.shift()
         res.objects.map(function (item, index) {
-          var name = item.name.replace('.jpg', '').replace('.png', '')
-          html += '<a class="topic-item" href="topic.html?name=' + name.replace('topic/', '') + '">'
+          var name = item.name.replace('topic/', '')
+          name = name.slice(0, name.lastIndexOf('.'))          
+          html += '<a class="topic-item" href="topic.html?name=' + name + '">'
           html += '<img class="topic-img" src="' + item.url + '" />'
           html += '</a>'
         })
@@ -198,8 +209,10 @@
         var html = ''
         res.objects.shift()
         res.objects.map(function (item, index) {
+          var name = item.name.replace('swiper/', '')
+          name = name.slice(0, name.lastIndexOf('.'))
           html += '<div class="swiper-slide">'
-          html += '<a href="topic.html?name=' + item.name.replace('swiper/', '').replace('.jpg', '').replace('.png', '') + '">'
+          html += '<a href="topic.html?name=' + name + '">'
           html += '<img class="swiper-img" src="' + item.url + '" />'
           html += '</a></div>'          
         })
