@@ -46,57 +46,50 @@
     }
 
     .video-list {
-      display: flex;
+      display: flex;      
       flex-wrap: wrap;
     }
 
     .video-item {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      width: calc((80vw - 90px) / 4);
-      height: calc(((80vw - 90px) / 4 - 3em) / 1.35);
-      margin-right: 30px;
-      margin-bottom: 30px;
+      width: calc(80vw / 4);
+      /* height: calc((80vw - 90px) / 4);      */
+      height: calc((80vw / 4 - 7em) / 1.7); 
+      margin-bottom: 3.5em;
       text-decoration: none;
       color: inherit;
-    }
+    }    
 
-    .video-item:hover .video-img {
+    .video-item:hover video {
       border: 8px solid rgb(255, 57, 13);
     }
 
     .video-item:hover .video-name {
       color: rgb(255, 57, 13);
-    }
+    }    
 
-    .video-item:nth-child(4n) {
-      margin-right: 0;
-    }
-
-    .video-name {
-      max-width: 2em;
+    .video-name {      
+      display: flex;
+      align-items: flex-end;
+      width: 4em;
+      margin-right: 10px;
       overflow: hidden;
       color: rgb(117, 188, 226);
+      word-wrap: break-word;
+      word-break:break-all;
       writing-mode: vertical-lr;
       -webkit-writing-mode: vertical-lr;
       text-orientation: sideways-right;
       -webkit-text-orientation: sideways-right;
     }
 
-    .video-img {
-      width: calc((80vw - 90px) / 4 - 3em);
-      height: calc(((80vw - 90px) / 4 - 3em) / 1.35);
+    .video-item video {
+      width: calc((80vw - 90px) / 4 - 4em);      
       border: 4px solid rgb(117, 188, 226);
       border-radius: 5px;
-      box-sizing: border-box;
-      -webkit-box-sizing: border-box;
-    }
-
-    .video-img img {
-      width: 100%;
-      height: 100%;
-    }
+    }    
 
     .clearfix {
       clear: both;
@@ -135,9 +128,29 @@
   <script src="http://gosspublic.alicdn.com/aliyun-oss-sdk-6.8.0.min.js"></script>
   <script>
     window.onload = function () {
+      function getVideoBase64(url) {
+        return new Promise(function (resolve, reject) {
+            let dataURL = '';
+            let video = document.createElement("video");
+            // video.setAttribute('crossOrigin', 'anonymous');//处理跨域
+            video.setAttribute('src', url);
+            video.setAttribute('width', 400);
+            video.setAttribute('height', 240);
+            video.addEventListener('loadeddata', function () {
+                let canvas = document.createElement("canvas"),
+                    width = video.width, //canvas的尺寸和图片一样
+                    height = video.height;
+                canvas.width = width;
+                canvas.height = height;
+                canvas.getContext("2d").drawImage(video, 0, 0, width, height); //绘制canvas
+                dataURL = canvas.toDataURL('image/jpeg'); //转换为base64
+                resolve(dataURL);
+            });
+        })
+      }
+
       const client = new OSS({
-        region: "oss-cn-beijing",
-        //云账号AccessKey有所有API访问权限，建议遵循阿里云安全最佳实践，创建并使用STS方式来进行API访问
+        region: "oss-cn-beijing",        
         accessKeyId: "LTAI4GFHXVLFTWbhnoR6TcKU",
         accessKeySecret: "eNWiEWNZny3EvNPHTSWvSR0z4G6kw9",
         bucket: "mglbox1",
@@ -145,19 +158,20 @@
       
       var list = document.getElementById('video-list')
       client.list({
-        prefix: 'video/cover/' + decodeURI(location.search.replace('?name=', ''))
+        prefix: 'video/data/' + decodeURI(location.search.replace('?name=', ''))
       }).then(function (res) {        
-        var html = ''
-        if (res.objects) {          
+        var html = ''        
+        if (res.objects && res.objects.length > 0) {          
+          res.objects.shift()
           res.objects.map(function (item, index) {
-            var name = item.name.replace('video/cover/', '').replace('.jpg', '').replace('.png', '')
-            html += '<a class="video-item" href="play.html?name=' + name + '" target="_blank">'
-            html += '<div class="video-name">' + name.split('$')[2] + '</div>'              
-            html += '<div class="video-img"><img src="' + item.url + '" /></div>'
-            html += '</a><div class="clearfix"></div>'
-          })
+            var name = item.name.replace('video/cover/', '').replace('.jpg', '').replace('.png', '')            
+            html += '<a class="video-item" href="play.html?name=' + name + '" target="_blank" >'            
+            html += '<div class="video-name">' + name.split('$')[1] + '</div>'              
+            html += '<video preload="metadata" src="' + item.url + '" />'
+            html += '</a>'
+          })          
         } else {
-          html = '<div class="main-empty">ᠬᠣᠭᠣᠰᠣᠨ ᠪᠠᠢᠨ᠎ᠠ</div><div class="clearfix"></div>'
+          html = '<div class="main-empty">ᠬᠣᠭᠣᠰᠣᠨ ᠪᠠᠢᠨ᠎ᠠ</div>'
         }
         list.innerHTML = html
       })      
