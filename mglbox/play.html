@@ -44,9 +44,11 @@
         bucket: "mglbox1",
       });
 
-      console.log('video/data/' + decodeURI(location.search.replace('?name=')))
+      var name = decodeURI(location.search)
+      name = name.replace('?name=', '')
+      name = name.slice(0, name.lastIndexOf('.'))
       client.list({
-        prefix: 'video/data/' + decodeURI(location.search.replace('?name=', ''))
+        prefix: 'video/data/' + name
       }).then(function (res) {
         var html = ''
         if (res.objects) {
