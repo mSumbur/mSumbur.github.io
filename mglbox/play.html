@@ -36,7 +36,7 @@
     window.onload = function () {      
       var name = decodeURI(location.search)
       name = name.replace('?name=', '') 
-      var html = '<video src="' + name + '" controls ></video>'
+      var html = '<video src="' + name + '" controls autoplay ></video>'
       document.getElementById('main').innerHTML = html      
     }
   </script>
