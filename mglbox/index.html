@@ -190,6 +190,11 @@
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script>
     window.onload = function () {
+      window.addEventListener('keydown', function (e) {
+        console.log(e)
+        alert(e.which + ' code:' + e.code)
+      })
+
       const client = new OSS({
         region: "oss-cn-beijing",        
         accessKeyId: "LTAI4GFHXVLFTWbhnoR6TcKU",
