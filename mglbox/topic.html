@@ -167,7 +167,7 @@
           res.objects.map(function (item, index) {
             var name = item.name.replace('video/', '')
             name = name.split('$')[1].split('.')[0]            
-            html += '<a class="video-item" href="play.html?name=' + item.url + '" target="_blank" >'            
+            html += '<a class="video-item" href="' + item.url + '" target="_blank" >'            
             html += '<div class="video-name">' + name + '</div>'              
             html += '<video preload="metadata" src="' + item.url + '" />'
             html += '</a>'
