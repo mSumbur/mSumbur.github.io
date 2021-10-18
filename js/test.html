@@ -16,7 +16,7 @@
      height: 603
     }
    };
-   navigator.mediaDevices.getUserMedia(opt)
+   window.navigator.mediaDevices.getUserMedia(opt)
     .then(function(mediaStream) {
      var video = document.querySelector('video');
      video.srcObject = mediaStream;
